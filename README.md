@@ -2,7 +2,7 @@
 
 Ci-dessous la description de la structure du projet `The Green Earth Post`.
 
-## Architecture 
+## Architecture
 L'image suivante présente l'architecture entre les pages Web, le back-end composé d'un serveur d'API et d'une base de données MySQL
 
 ![Datahub Architecture](docs/architecture.png)
@@ -16,15 +16,15 @@ L'image suivante présente l'architecture entre les pages Web, le back-end compo
 - Pour récupérer les commentaires depuis le back-end, il faut remplacer la valeur de la variables `apiServerUrl` avec l'url du serveur d'API dans le fichier `front_end/comment.js`.
 
 ### Back-End
-- Le dossier `back_end` est découpé en deux fichiers Python : 
+- Le dossier `back_end` est découpé en deux fichiers Python :
     - `handler.py` pour traiter les requêtes HTTP
     - `db.py` pour exécuter les commandes SQL sur la base de données `MySQL`
 
 ## Développement en local (optionnel)
 
-Pour tester en local les pages Web avec le back-end, voici la procédure à suivre : 
+Pour tester en local les pages Web avec le back-end, voici la procédure à suivre :
 - [Installer Docker sur votre poste](https://openclassrooms.com/fr/courses/2035766-optimisez-votre-deploiement-en-creant-des-conteneurs-avec-docker/6211390-installez-docker-sur-votre-poste)
-- Lancer une base de données MySQL dans un conteneur Docker, avec 
+- Lancer une base de données MySQL dans un conteneur Docker, avec
   - nom de base de données MySQL : `thegreenearthpost`
   - nom d'utilisateur pour se connecter à MySQL : `thegreenearthpost`
   - mot de passe pour se connecter à MySQL : `thegreenearthpost`
@@ -83,7 +83,7 @@ Voici la procédure à réaliser pour installer le serveur d'API dans une instan
 
 ![Groupe de sécurité](docs/groupe_de_securite_serveur_api.PNG)
 
-- Créez une instance EC2 avec les configurations suivantes : 
+- Créez une instance EC2 avec les configurations suivantes :
   - AMI : `Amazon Linux AMI`
   - Type d'instance : `t2.micro`
   - Rôle IAM : `role_serveur_api`
@@ -100,8 +100,13 @@ Voici la procédure à réaliser pour installer le serveur d'API dans une instan
 cd /home/ec2-user
 sudo yum -y upgrade
 sudo yum install -y git
-git clone https://github.com/ysennoun/the-green-earth-post.git
+sudo yum install -y python3
+sudo yum install -y python3-pip
+git clone https://github.com/krayza/the-green-earth-post.git
+pip3 install gunicorn
+python3 -m pip install gunicorn
 pip3 install -r the-green-earth-post/back_end/requirements.txt
+python3 -m pip install -r the-green-earth-post/back_end/requirements.txt
 export AWS_DEFAULT_REGION="eu-west-1"
 export MYSQL_DB_INSTANCE="thegreenearthpost"
 export MYSQL_DATABASE="thegreenearthpost"
